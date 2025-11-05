@@ -35,7 +35,10 @@ startup_32:
 	mov %ax, %es
 	mov %ax, %fs
 	mov %ax, %gs
-	lss stack_start, %esp				# 表示stack_start->ss:esp,设置系统堆栈.stack_start定义在kernel/sched.c中.
+#	lss stack_start, %esp				# 表示stack_start->ss:esp,设置系统堆栈.stack_start定义在kernel/sched.c中.
+	mov %eax, %ss
+	mov $0x34360, %eax
+	mov %eax, %esp 
 	call setup_idt						# 调用设置中断描述符表子程序.
 	call setup_gdt						# 调用设置全局描述符表子程序.
 	movl $0x10, %eax					# reload all the segment registers
@@ -49,7 +52,7 @@ startup_32:
 	# 这里没有加载它并没有让程序出错.针对该问题,目前内核中就在call setup_gdt之后添加了一条长跳转指令:'ljmp $(__KERNEL_CS),$1f',跳转到movl $0x10,$eax
 	# 来确保CS确实被重新加载.
 
-	lss stack_start, %esp
+#	lss stack_start, %esp
 
 	 # 下面代码用于测试A20地址线是否已经开启.采用的方法是向内存地址0x000000处写入任意一个数值,然后看内存地址0x100000(1M)处是否也是这个数值.如果一直相同的
 	 # 话,就一直比较下去,即死循环,死机.表示地址A20线没有选通,结果内核就不能使用1MB以上内存.

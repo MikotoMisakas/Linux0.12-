@@ -46,6 +46,12 @@ Image: boot/bootsect boot/setup tools/system
 	@rm tools/kernel -f
 	@cp Kernel_Image ../linux-0.12-080324
 	@sync
+debug: 
+	qemu-system-i386 -m 16 -boot a -fda Kernel_Image -hda hdc-0.11.img -nographic -serial mon:stdio -S -s -vnc :0
+
+run: Image
+	qemu-system-i386 -m 16 -boot a -fda Kernel_Image -hda hdc-0.11.img -nographic -serial mon:stdio -vnc :0
+
 
 boot/bootsect: boot/bootsect.S
 	@make bootsect -C boot
@@ -97,7 +103,7 @@ clean:
 	@rm -f init/*.o tools/system boot/*.o typescript* info bochsout.txt
 	@for i in mm fs kernel lib boot; do make clean -C $$i; done
 
-debug:
+debug2:
 	@qemu-system-i386 -m 32M -boot a -fda Image -fdb rootimage-0.12 -hda rootimage-0.12-hd \
 	-serial pty -S -gdb tcp::1234
 

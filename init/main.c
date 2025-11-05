@@ -228,7 +228,7 @@ int main(void)										/* This really IS void, no error here. */
 	memory_end &= 0xfffff000;										// 忽略不到4KB(1页)的内存数.
 	if (memory_end > 16 * 1024 * 1024)								// 如果内存量超过16MB,则按16MB计.
 		memory_end = 16 * 1024 * 1024;
-	// 根据物理内存的大小设置高速缓冲去的末端大小
+	// 根据物理内存的大小设置高速缓冲区的末端大小
 	if (memory_end > 12 * 1024 * 1024) 								// 如果内存>12MB,则设置缓冲区末端=4MB
 		buffer_memory_end = 4 * 1024 * 1024;
 	else if (memory_end > 6 * 1024 * 1024)							// 否则若内存>6MB,则设置缓冲区末端=2MB
