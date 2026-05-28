@@ -77,6 +77,10 @@ SWAP_DEV = 0				!交换设备使用与系统引导是同样的设备
 
 entry start					! 告知连接程序,程序从start标号开始执行
 start:
+	mov ah, #0x0E
+	mov al, #97
+	int #0x10   
+
     mov	ax, #BOOTSEG		! 将DS段寄存器置为0x07c0
 	mov	ds, ax
 	mov	ax, #INITSEG		! 将ES段寄存器置为0x9000

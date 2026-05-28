@@ -22,8 +22,7 @@ qemu|2.5.0
 * 首先使用qemu启动
 
 * ```css
-   qemu-system-x86_64 -m 16 -boot a -fda Linux-0.12-master/Kernel_Image -hda hdc-0.11.img   -s  -S
-  
+ qemu-system-x86_64 -m 16 -boot a -fda Kernel_Image -hda hdc-0.11.img -nographic 
   
   -fda Image：代表你把 Image 執行目錄下  
   -hda hdc-0.11.img：是一个模拟硬盘的文件,在源码目录下可以找到
